@@ -1,0 +1,35 @@
+services:
+  ryv-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - GIN_MODE=release
+      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
+      - DB_PATH=/app/ryv_blog.db
+    volumes:
+      - ./database:/app/database
+      - ./ryv_blog.db:/app/ryv_blog.db
+    restart: unless-stopped
+    networks:
+      - ryv-network
+
+  # Opcional: Redis para cache de sessões (pode ser usado no futuro)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - ryv-network
+
+volumes:
+  redis_data:
+
+networks:
+  ryv-network:
+    driver: bridge

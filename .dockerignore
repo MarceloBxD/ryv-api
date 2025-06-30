@@ -1,0 +1,45 @@
+# Arquivos de desenvolvimento
+.git
+.gitignore
+README.md
+Makefile
+.env
+env.example
+
+# Arquivos de build
+ryv-api
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Logs
+*.log
+logs/
+
+# Banco de dados (será criado em runtime)
+ryv_blog.db
+*.db
+
+# Arquivos temporários
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Testes
+*_test.go
+test/
+
+# Documentação
+docs/
+*.md
+
+# Scripts de desenvolvimento
+scripts/create-admin.go 
