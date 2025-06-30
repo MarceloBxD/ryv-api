@@ -109,8 +109,8 @@ func (s *ScraperService) scrapeSite(url, selector, category string) ([]ScrapedAr
 
 	var articles []ScrapedArticle
 
-	doc.Find(selector).Each(func(i int, s *goquery.Selection) {
-		article := s.extractArticle(s, category, url)
+	doc.Find(selector).Each(func(i int, selection *goquery.Selection) {
+		article := s.extractArticle(selection, category, url)
 		if article.Title != "" && article.Content != "" {
 			articles = append(articles, article)
 		}

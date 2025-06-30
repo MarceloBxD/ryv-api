@@ -19,6 +19,10 @@ dev:
 	@echo "🔧 Executando em modo desenvolvimento..."
 	GIN_MODE=debug go run $(MAIN_FILE)
 
+admin:
+	@echo "🌐 Iniciando painel administrativo..."
+	cd admin && go run server.go
+
 test:
 	@echo "🧪 Executando testes..."
 	go test ./...

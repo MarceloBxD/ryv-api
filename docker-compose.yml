@@ -5,9 +5,10 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3001:3001"
+    env_file:
+      - .env
     environment:
       - GIN_MODE=release
-      - JWT_SECRET=your-super-secret-jwt-key-change-in-production
       - DB_PATH=/app/ryv_blog.db
     volumes:
       - ./database:/app/database

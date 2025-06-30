@@ -93,6 +93,8 @@ curl -X POST http://localhost:3001/api/auth/create-admin \
 
 ### 2. Fazer Login
 
+#### Via API (curl)
+
 ```bash
 curl -X POST http://localhost:3001/api/auth/login \
   -H "Content-Type: application/json" \
@@ -101,6 +103,22 @@ curl -X POST http://localhost:3001/api/auth/login \
     "password": "senha123"
   }'
 ```
+
+#### Via Painel Administrativo (Recomendado)
+
+1. **Inicie o painel administrativo**:
+
+```bash
+make admin
+```
+
+2. **Acesse no navegador**:
+
+```
+http://localhost:3000
+```
+
+3. **Faça login com suas credenciais**
 
 ## 📚 Endpoints da API
 

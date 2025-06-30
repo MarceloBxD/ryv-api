@@ -65,6 +65,33 @@ func GetArticle(c *gin.Context) {
 	c.JSON(http.StatusOK, article)
 }
 
+// GetArticleByIDOrSlug retorna um artigo por ID ou slug
+func GetArticleByIDOrSlug(c *gin.Context) {
+	idOrSlug := c.Param("id_or_slug")
+	
+	var article models.Article
+	
+	// Primeiro, tenta buscar por ID (se for um número)
+	if id, err := strconv.Atoi(idOrSlug); err == nil {
+		// É um número, busca por ID
+		if err := database.DB.Where("id = ? AND is_published = ?", id, true).First(&article).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Artigo não encontrado"})
+			return
+		}
+	} else {
+		// Não é um número, busca por slug
+		if err := database.DB.Where("slug = ? AND is_published = ?", idOrSlug, true).First(&article).Error; err != nil {
+			c.JSON(http.StatusNotFound, gin.H{"error": "Artigo não encontrado"})
+			return
+		}
+	}
+	
+	// Incrementar contador de visualizações
+	database.DB.Model(&article).Update("view_count", article.ViewCount+1)
+	
+	c.JSON(http.StatusOK, article)
+}
+
 // CreateArticle cria um novo artigo
 func CreateArticle(c *gin.Context) {
 	var article models.Article

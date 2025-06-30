@@ -8,9 +8,15 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
 func main() {
+	// Carregar variáveis de ambiente do arquivo .env
+	if err := godotenv.Load(); err != nil {
+		log.Println("⚠️ Arquivo .env não encontrado, usando variáveis do sistema")
+	}
+
 	// Inicializar banco de dados
 	database.InitDatabase()
 	db := database.DB
@@ -38,7 +44,7 @@ func main() {
 		{
 			articles.GET("", handlers.GetArticles)
 			articles.GET("/categories", handlers.GetCategories)
-			articles.GET("/:slug", handlers.GetArticle)
+			articles.GET("/:id_or_slug", handlers.GetArticleByIDOrSlug)
 		}
 
 		// Rota de recomendação diária
